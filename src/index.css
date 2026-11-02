@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #13200f;
+  --color-mute: #3a4a3d;
+  --color-soft: #5b6b5e;
+  --color-lime: #8fce2a;
+  --color-lime-hover: #9eda3d;
+  --color-canvas: #f3f6f1;
+  --color-panel: #eef3ea;
+  --color-line: #d7e0d3;
+  --color-night: #0d140f;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-canvas);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pan {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.anim-rise {
+  animation: rise 0.8s ease-out both;
+}
+
+.anim-rise-delay {
+  animation: rise 0.9s ease-out 0.12s both;
+}
+
+.anim-rise-delay-2 {
+  animation: rise 0.9s ease-out 0.22s both;
+}
+
+.anim-fade {
+  animation: fade 1s ease-out both;
+}
+
+.anim-pan {
+  animation: pan 14s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-rise,
+  .anim-rise-delay,
+  .anim-rise-delay-2,
+  .anim-fade,
+  .anim-pan {
+    animation: none !important;
+  }
+}

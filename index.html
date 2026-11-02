@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SmartList — your smart shopping list. Organize shopping with AI, discover recipes, and enjoy offers. Join the pre-launch list."
+    />
+    <title>SmartList — Smart shopping list</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Remove Service Worker / cache do PWA antigo no mesmo domínio (evita redirect para /auth).
+      (function () {
+        var KEY = 'smartlist-sw-cleared-v1'
+        if (!('serviceWorker' in navigator)) return
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          if (!regs.length) return
+          return Promise.all(
+            regs.map(function (reg) {
+              return reg.unregister()
+            }),
+          ).then(function () {
+            if (!('caches' in window)) return
+            return caches.keys().then(function (keys) {
+              return Promise.all(
+                keys.map(function (key) {
+                  return caches.delete(key)
+                }),
+              )
+            })
+          }).then(function () {
+            try {
+              if (sessionStorage.getItem(KEY)) return
+              sessionStorage.setItem(KEY, '1')
+            } catch (e) {}
+            var url = new URL(window.location.href)
+            if (url.pathname === '/auth' || url.pathname.indexOf('/auth/') === 0) {
+              url.pathname = '/'
+              url.search = ''
+            }
+            window.location.replace(url.toString())
+          })
+        })
+      })()
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
