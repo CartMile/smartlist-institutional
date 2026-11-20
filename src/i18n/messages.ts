@@ -51,6 +51,14 @@ type Messages = {
     seconds: string
     launched: string
   }
+  share: {
+    button: string
+    text: string
+    pageTitle: string
+    copied: string
+    copy: string
+    whatsapp: string
+  }
   home: {
     heroTitle: string
     heroBody: string
@@ -141,6 +149,14 @@ export const messages: Record<Locale, Messages> = {
       minutes: 'min',
       seconds: 'seg',
       launched: 'É hoje. O SmartList está no ar.',
+    },
+    share: {
+      button: 'Compartilhe com seus amigos',
+      text: 'O SmartList chega em 5 de dezembro. Sua lista de compras inteligente, com receitas e ofertas. Entre na lista de pré-lançamento.',
+      pageTitle: 'SmartList — Lista de compras inteligente',
+      copied: 'Link copiado',
+      copy: 'Copiar link',
+      whatsapp: 'WhatsApp',
     },
     home: {
       heroTitle: 'Sua lista de compras inteligente. Mais praticidade e vantagens para você.',
@@ -239,6 +255,14 @@ export const messages: Record<Locale, Messages> = {
       seconds: 'sec',
       launched: 'It’s today. SmartList is live.',
     },
+    share: {
+      button: 'Share with your friends',
+      text: 'SmartList launches December 5. Your smart shopping list, with recipes and deals. Join the pre-launch list.',
+      pageTitle: 'SmartList — Smart shopping list',
+      copied: 'Link copied',
+      copy: 'Copy link',
+      whatsapp: 'WhatsApp',
+    },
     home: {
       heroTitle: 'Your smart shopping list. More convenience and benefits for you.',
       heroBody:
@@ -335,6 +359,14 @@ export const messages: Record<Locale, Messages> = {
       minutes: 'min',
       seconds: 'seg',
       launched: 'Es hoy. SmartList ya está disponible.',
+    },
+    share: {
+      button: 'Comparte con tus amigos',
+      text: 'SmartList llega el 5 de diciembre. Tu lista de compras inteligente, con recetas y ofertas. Entra en la lista de prelanzamiento.',
+      pageTitle: 'SmartList — Lista de compras inteligente',
+      copied: 'Enlace copiado',
+      copy: 'Copiar enlace',
+      whatsapp: 'WhatsApp',
     },
     home: {
       heroTitle: 'Tu lista de compras inteligente. Más practicidad y ventajas para ti.',

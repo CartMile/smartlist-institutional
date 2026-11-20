@@ -18,6 +18,26 @@ type LocaleContextValue = {
 
 const LocaleContext = createContext<LocaleContextValue | null>(null)
 
+function setMeta(name: string, content: string) {
+  let tag = document.querySelector(`meta[name="${name}"]`)
+  if (!tag) {
+    tag = document.createElement('meta')
+    tag.setAttribute('name', name)
+    document.head.appendChild(tag)
+  }
+  tag.setAttribute('content', content)
+}
+
+function setMetaProperty(property: string, content: string) {
+  let tag = document.querySelector(`meta[property="${property}"]`)
+  if (!tag) {
+    tag = document.createElement('meta')
+    tag.setAttribute('property', property)
+    document.head.appendChild(tag)
+  }
+  tag.setAttribute('content', content)
+}
+
 function isPrelaunchPath(pathname: string) {
   const path = pathname.toLowerCase().replace(/\/+$/, '') || '/'
   return path === '/prelancamento' || path === '/pre-launch' || path === '/prelanzamiento'
@@ -29,7 +49,14 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   const locale = localeFromPath(location.pathname) ?? 'en'
 
   useEffect(() => {
-    document.documentElement.lang = locale
+    const share = messages[locale].share
+    const lang = locale === 'pt' ? 'pt-BR' : locale
+    document.documentElement.lang = lang
+    document.title = share.pageTitle
+    setMeta('description', share.text)
+    setMetaProperty('og:title', share.pageTitle)
+    setMetaProperty('og:description', share.text)
+    setMetaProperty('og:locale', lang.replace('-', '_'))
   }, [locale])
 
   const value = useMemo<LocaleContextValue>(

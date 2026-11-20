@@ -1,5 +1,11 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "rewrites": [
+    { "source": "/es", "destination": "/es.html" },
+    { "source": "/prelanzamiento", "destination": "/es.html" },
+    { "source": "/pt", "destination": "/pt.html" },
+    { "source": "/prelancamento", "destination": "/pt.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
   "headers": [
     {
       "source": "/index.html",

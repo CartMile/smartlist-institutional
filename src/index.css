@@ -88,12 +88,48 @@
   animation: pan 14s ease-out both;
 }
 
+@keyframes share-nudge {
+  0%,
+  62%,
+  100% {
+    transform: translate(0, 0);
+  }
+  74% {
+    transform: translate(3px, -3px);
+  }
+  86% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes share-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+}
+
+.share-friends-icon {
+  animation: share-nudge 2.4s ease-in-out infinite;
+}
+
+.share-friends-ring {
+  animation: share-ring 2.4s ease-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .anim-rise,
   .anim-rise-delay,
   .anim-rise-delay-2,
   .anim-fade,
-  .anim-pan {
+  .anim-pan,
+  .share-friends-icon,
+  .share-friends-ring {
     animation: none !important;
   }
 }

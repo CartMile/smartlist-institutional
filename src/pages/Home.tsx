@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
+import { AppScreen, type Screen } from '../components/AppScreens'
 import { LaunchCountdown } from '../components/LaunchCountdown'
 import { PhoneFrame } from '../components/PhoneFrame'
+import { ShareWithFriends } from '../components/ShareWithFriends'
 import { SiteFooter } from '../components/SiteFooter'
 import { SiteHeader } from '../components/SiteHeader'
 import { useLocale } from '../i18n/LocaleContext'
@@ -9,10 +11,10 @@ export function Home() {
   const { t, prelaunchPath } = useLocale()
   const h = t.home
 
-  const appShots = [
-    { src: '/images/app/lista-categorias.jpg', alt: h.shotListAlt, label: h.shotList },
-    { src: '/images/app/receita.jpg', alt: h.shotRecipesAlt, label: h.shotRecipes },
-    { src: '/images/app/promocoes.jpg', alt: h.shotDealsAlt, label: h.shotDeals },
+  const appShots: Array<{ screen: Screen; alt: string; label: string }> = [
+    { screen: 'list', alt: h.shotListAlt, label: h.shotList },
+    { screen: 'recipe', alt: h.shotRecipesAlt, label: h.shotRecipes },
+    { screen: 'deals', alt: h.shotDealsAlt, label: h.shotDeals },
   ]
 
   const sections = [
@@ -20,7 +22,7 @@ export function Home() {
       id: 'organizar',
       title: h.organizeTitle,
       body: [h.organizeBody1, h.organizeBody2],
-      phone: '/images/app/lista-categorias.jpg',
+      screen: 'list' as Screen,
       phoneAlt: h.organizePhoneAlt,
     },
     {
@@ -29,7 +31,7 @@ export function Home() {
       body: [h.recipesBody],
       emphasisLead: h.recipesEmphasisLead,
       emphasis: h.recipesEmphasis,
-      phone: '/images/app/receita.jpg',
+      screen: 'recipe' as Screen,
       phoneAlt: h.recipesPhoneAlt,
       reverse: true,
     },
@@ -37,7 +39,7 @@ export function Home() {
       id: 'ofertas',
       title: h.dealsTitle,
       body: [h.dealsBody1, h.dealsBody2],
-      phone: '/images/app/promocoes.jpg',
+      screen: 'deals' as Screen,
       phoneAlt: h.dealsPhoneAlt,
     },
     {
@@ -46,7 +48,7 @@ export function Home() {
       body: [h.campaignsBody],
       emphasis: h.campaignsEmphasis,
       disclaimer: h.campaignsDisclaimer,
-      phone: '/images/app/participacoes.jpg',
+      screen: 'campaigns' as Screen,
       phoneAlt: h.campaignsPhoneAlt,
       reverse: true,
     },
@@ -56,10 +58,12 @@ export function Home() {
     <div className="min-h-screen bg-canvas text-ink">
       <SiteHeader variant="dark" />
 
-      <section className="relative min-h-[100svh] overflow-hidden bg-black">
-        <img src="/images/hero.jpg" alt="" className="anim-pan absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/45" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/45" />
+      <section className="relative min-h-[100svh] bg-black">
+        <div className="absolute inset-0 overflow-hidden">
+          <img src="/images/hero.jpg" alt="" className="anim-pan absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/45" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/45" />
+        </div>
 
         <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-6xl items-end gap-10 px-4 pb-14 pt-28 sm:px-6 sm:pb-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
@@ -89,10 +93,15 @@ export function Home() {
               </Link>
               <p className="text-sm text-white/75 sm:max-w-xs">{h.heroNote}</p>
             </div>
+            <div className="mt-4">
+              <ShareWithFriends />
+            </div>
           </div>
 
           <div className="anim-rise-delay hidden justify-center lg:flex">
-            <PhoneFrame src="/images/app/home.jpg" alt={h.heroPhoneAlt} priority />
+            <PhoneFrame alt={h.heroPhoneAlt}>
+              <AppScreen name="home" />
+            </PhoneFrame>
           </div>
         </div>
       </section>
@@ -106,8 +115,10 @@ export function Home() {
 
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
             {appShots.map((shot) => (
-              <figure key={shot.src} className="mx-auto w-full max-w-[240px]">
-                <PhoneFrame src={shot.src} alt={shot.alt} />
+              <figure key={shot.screen} className="mx-auto w-full max-w-[240px]">
+                <PhoneFrame alt={shot.alt}>
+                  <AppScreen name={shot.screen} />
+                </PhoneFrame>
                 <figcaption className="mt-3 text-center text-sm font-medium text-soft">{shot.label}</figcaption>
               </figure>
             ))}
@@ -139,7 +150,9 @@ export function Home() {
                 {section.disclaimer ? <p className="text-sm italic text-soft">{section.disclaimer}</p> : null}
               </div>
             </div>
-            <PhoneFrame src={section.phone} alt={section.phoneAlt} />
+            <PhoneFrame alt={section.phoneAlt}>
+              <AppScreen name={section.screen} />
+            </PhoneFrame>
           </div>
         </section>
       ))}
@@ -169,6 +182,9 @@ export function Home() {
           >
             {h.ctaButton}
           </Link>
+          <div className="mt-4 flex justify-center">
+            <ShareWithFriends align="center" />
+          </div>
         </div>
       </section>
 
